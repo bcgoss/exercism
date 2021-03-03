@@ -1,15 +1,35 @@
-// This is a "stub" file.  It's a little start on your solution.
-// It's not a complete solution though; you have to write some code.
-
-// Package bob should have a package comment that summarizes what it's about.
-// https://golang.org/doc/effective_go.html#commentary
+// Package bob provides a stimulating conversation partner
 package bob
 
-// Hey should have a comment documenting it.
+import (
+        "strings"
+)
+
+// Hey responds to an individual remark
 func Hey(remark string) string {
-	// Write some code here to pass the test suite.
-	// Then remove all the stock comments.
-	// They're here to help you get started but they only clutter a finished solution.
-	// If you leave them in, reviewers may protest!
-	return ""
+  switch  {
+    case isShouting(remark) && isQuestion(remark):
+      return "Calm down, I know what I'm doing!"
+    case isShouting(remark):
+      return "Whoa, chill out!"
+    case isQuestion(remark):
+      return "Sure."
+    case isSilence(remark):
+      return "Fine. Be that way!"
+    default:
+      return "Whatever."
+  }
 }
+
+func isShouting(remark string) bool {
+  return remark == strings.ToUpper(remark) && remark != strings.ToLower(remark)
+}
+
+func isQuestion(remark string) bool {
+  return strings.HasSuffix(strings.TrimSpace(remark), "?")
+}
+
+func isSilence(remark string) bool {
+  return strings.TrimSpace(remark) == ""
+}
+
